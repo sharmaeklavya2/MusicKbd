@@ -65,6 +65,8 @@ def play_sound(freq, time):
     try:
         proc.wait(timeout=time)
     except subprocess.TimeoutExpired:
+        pass
+    finally:
         proc.kill()
 
 def play_char(ch, keymap, key_time, queue):
