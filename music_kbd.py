@@ -12,6 +12,8 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DEFAULT_KEY_TIME = 0.3
 DEFAULT_KEYMAP_FILE = os.path.join(BASE_DIR, "map2.json")
 
+UPPER_KEYS = "_ABCDEFGHIJKLMNOPQRSTUVWXYZ~!@#$%^&*()_+{}|:\"<>?"
+
 class Console(object):
 
     @staticmethod
@@ -90,6 +92,8 @@ def main():
         help='Time for which a key will stay pressed')
     parser.add_argument('-q', '--queue', action='store_true', default=False,
         help='Queue multiple keys instead of playing simultaneously')
+    parser.add_argument('--no-double-upper', dest='double_upper', action='store_false', default=True,
+        help='Do not play uppercase keys and underscore for twice the time')
     args = parser.parse_args()
     keymap = make_keymap(args.mapfile or DEFAULT_KEYMAP_FILE)
 
@@ -98,7 +102,11 @@ def main():
         while(True):
             ch = Console.getch()
             print_char(ch)
-            play_char(ch, keymap, args.key_time, args.queue)
+            if (ch in UPPER_KEYS) and args.double_upper:
+                key_time = args.key_time * 2
+            else:
+                key_time = args.key_time
+            play_char(ch, keymap, key_time, args.queue)
     except (KeyboardInterrupt, EOFError):
         print()
     finally:
