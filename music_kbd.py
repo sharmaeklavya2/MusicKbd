@@ -10,7 +10,7 @@ from threading import Thread
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DEFAULT_KEY_TIME = 0.3
-DEFAULT_KEYMAP_FILE = os.path.join(BASE_DIR, "map2.json")
+DEFAULT_KEYMAP_FILE = os.path.join(BASE_DIR, "default_map.json")
 
 UPPER_KEYS = "_ABCDEFGHIJKLMNOPQRSTUVWXYZ~!@#$%^&*()_+{}|:\"<>?"
 
